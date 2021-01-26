@@ -1,0 +1,21 @@
+﻿@page
+@model Pastel.Pages.OrderSuccessModel
+@{
+    ViewData["Title"] = "Encomenda Enviada";
+    var emailNoSetup = TempData["NoEMail"]?.ToString() == "1";
+}
+<h1> Confirmação do envio da encomenda</h1>
+@if (emailNoSetup)
+{
+    <div class="message info">
+        <h2>Por favor configure o servidor de envio de mensagens</h2>
+    </div>
+} else
+{
+    <div class="message order-success">
+        <h2>Obrigado pela sua encomenda</h2>
+        <p>Foi enviado um email com os dados da sua encomenda para o email de registo.</p>
+    </div>
+
+
+}

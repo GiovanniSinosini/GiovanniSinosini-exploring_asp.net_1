@@ -1,0 +1,44 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+<h1>Bem-vindo à Pastelaria Gourmet</h1>
+<div id="featuredProduct">
+    <img alt="Produto em destaque" src="~/images/Products/@Model.RandomProduct.ImageName" />
+    <div id="featuredProductInfo">
+        <div id="productInfo">
+            <h2>@Model.RandomProduct.Name</h2>
+            <p class="price">@string.Format("{0:C}", @Model.RandomProduct.Price)</p>
+            <p class="description">@Model.RandomProduct.Description</p>
+        </div>
+        <div id="callToAction">
+            <a href="~/order/@Model.RandomProduct.ID" title="Encomendar @Model.RandomProduct.Name" class="order-button">Comprar</a>
+        </div>
+    </div>
+
+</div>
+<div id="productsWrapper">
+    <ul id="products" data-role="listview" data-inset="true">
+        @foreach (var product in @Model.Products)
+        {
+<li class="product">
+    <a href="~/order/@product.ID" title="Order @product.Name">
+        <img class="hide-from-desktop" src="~/images/Products/Thumbnails/@product.ImageName" alt="@product.Name" />
+
+        <div class="productInfo">
+            <h3>@product.Name</h3>
+            <img class="product-image hide-from-mobile" src="~/images/Products/Thumbnails/@product.ImageName" alt="@product.Name" />
+            <p class="description">@product.Description</p>
+           
+        </div>
+    </a>
+
+    <!-- Desktop only -->
+    <div class="action ">
+        <p class="price">@string.Format("{0:c}", product.Price)</p>
+        <a class="order-button" href="~/order/@product.ID" title="Order @product.Name">Comprar</a>
+    </div>
+</li>}
+    </ul>
+</div>

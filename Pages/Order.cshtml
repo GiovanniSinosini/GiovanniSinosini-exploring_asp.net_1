@@ -1,0 +1,75 @@
+﻿@page "{id:int}"
+@model Pastel.Pages.OrderModel
+@{
+    ViewData["Title"] = "Coloque a sua encomenda";
+}
+<ol id="orderProcess">
+    <li><span class="step-number">1</span> Escolha o produto</li>
+    <li class="current"><span class="step-number">2</span> Detalhes e envio</li>
+    <li><span class="step-number">3</span> Recibo</li>
+</ol>
+<h1>Produto a encomendar: @Model.Product.Name</h1>
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger">
+    </div>
+    <fieldset class="no-legend">
+
+        <legend>Coloque aqui a sua encomenda</legend>
+        <img class="product-image order-image" src="~/images/Products/Thumbnails/@Model.Product.ImageName" alt="Imagem de @Model.Product.Name" />
+        <ul data-role="listview">
+            <li>
+                <div>
+                    <p class="description">@Model.Product.Description</p>
+                </div>
+            </li>
+            <li class="email">
+                <div class="field-validation-error" data-role="fieldcontain">
+                    <label asp-for="ClientEmail">O seu email</label>
+                    <input type="text" asp-for="ClientEmail" /><span asp-validation-for="ClientEmail"></span>
+                </div>
+            </li>
+
+            <li class="email">
+                <div class="field-validation-error" data-role="fieldcontain">
+                    <label asp-for="ShippingAddress">A sua morada</label>
+                    <input type="text" asp-for="ShippingAddress" /><span asp-validation-for="ShippingAddress"></span>
+                </div>
+            </li>
+
+            <li class="email">
+                <div class="field-validation-error" data-role="fieldcontain">
+                    <label asp-for="OrderQty">Quantidade</label>
+                    <input type="text" asp-for="OrderQty" />x<span id="orderPrice">@string.Format("{0:F}", Model.Product.Price)</span>
+                    =
+                    <span id="orderTotal">@string.Format("{0:F}", Model.Product.Price)</span>
+                    <span asp-validation-for="OrderQty"></span>
+                </div>
+            </li>
+        </ul>
+        <p>
+            <input type="hidden" asp-for="Product.ID" />
+            <input type="submit" value="Encomendar" data-role="none" data-inline="true" />
+        </p>
+    </fieldset>
+</form>
+@section Scripts{ 
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+    $(function () {
+       // var price = parseFloat($("#orderPrice").text()).toFixed(2),
+            var price = $("#orderPrice").text(),
+            total = $("#orderTotal"),
+            OrderQty = $("#OrderQty");
+            OrderQty.change(function () {
+            var quantity = parseInt(OrderQty.val());
+            if (!quantity || quantity < 1) {
+                OrderQty.val(1);
+                quantity = 1;
+            }
+            else if (quantity.toString !== OrderQty.val()) {
+                total.text((price * quantity.toFixed(2)) + " €");
+            }
+        });
+    })
+</script>
+}

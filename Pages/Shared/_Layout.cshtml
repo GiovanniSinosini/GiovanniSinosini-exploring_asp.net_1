@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pastelaria Gourmet - @ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <div id="page">
+        <header>
+            <p class="site-title"><a href="~/">Pastelaria Gourmet</a></p>
+            <nav>
+                <ul>
+                    <li><a href="~/">Home</a></li>
+                    <li><a href="~/About">Sobre nós</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div id="body">
+            @RenderBody()
+        </div>
+        <footer>
+            &copy; @DateTime.Now.Year - Pastelaria Gourmet
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
